@@ -1,6 +1,11 @@
 import random
 import math
 
+'''
+Here, we declare three variables that go into a building: location (city), struct (structural integrity/resistance to earthquakes), and wear (how worn down/old the building is).
+For city, I append an emoji for every slot in a 10x10 grid. For struct, I scale it from 0 to 1. For wear, everything starts as 1.
+'''
+
 city = []
 struct = []
 wear = []
@@ -20,6 +25,14 @@ for i in range(10):
     struct.append(temp2)
     wear.append(temp3)
 
+
+'''
+Here, I define the earthquake() function, which essentially takes into account the structural integrity and wear of the building in relation to magnitude and distance from epicenter to calculate overall damage.
+
+For distance, I used an inverse function (1/x), where the best possible distance is near 0 (i.e. 1/200), and the worst possible distance is 1 (1/1)/
+For structural integrity, I subtracted the struct score from 1 to calculate the percentage of damage dealt.
+I took both of those and multiplied them by the magnitude, then subtracted that from the wear to calculate whether or not the building is still standing.
+'''
 
 def earthquake():
     epicenter1, epicenter2 = random.randint(0, 9), random.randint(0, 9)
@@ -51,7 +64,10 @@ def earthquake():
     print(*city, sep='\n')
 
 
-earthquake()
+'''
+Here, we simulate earthquake occurences over the course of 10 days, where the chance of an earthquake in this case is 30% (very high, insurance must cost a lot). 
+Every loop, we check to see if there is an earthquake, then output the magnitude, epicenter, and the remaining buildings
+'''
 
 days = 10
 e_chance = 0.3
@@ -59,7 +75,6 @@ for i in range(days):
     x = random.randint(1, 100)/100
     if x < e_chance:
         print('- - - - - - - - - - EMERGENCY: EARTHQUAKE - - - - - - - - - -')
-
         earthquake()
         print('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -')
 
